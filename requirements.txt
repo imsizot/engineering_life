@@ -1,6 +1,8 @@
 pandas
 numpy
 scikit-learn
+xgboost
+lightgbm
 pyswarm
 tqdm
 matplotlib

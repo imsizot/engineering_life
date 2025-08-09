@@ -184,14 +184,11 @@ def optimize_hyperparameters(model_class, param_bounds, X_train, y_train, pso_ma
             logger.error(f"Error in objective for {model_class.__name__}: {str(e)}")
             return float('inf')
 
+    logger.info("Starting PSO optimization. This may take some time...")
     try:
-        pbar = tqdm(total=pso_maxiter, desc=f"Optimizing {model_class.__name__}", unit="it")
-        best_x, best_score = pso(objective, lb, ub, swarmsize=pso_swarmsize, maxiter=pso_maxiter, debug=False)
-        pbar.update(pso_maxiter)
-        pbar.close()
+        best_x, best_score = pso(objective, lb, ub, swarmsize=pso_swarmsize, maxiter=pso_maxiter, debug=True)
         logger.info(f"Best score for {model_class.__name__}: {best_score}")
     except Exception as e:
-        pbar.close()
         logger.error(f"Error in PSO for {model_class.__name__}: {str(e)}")
         return categorical_params.copy()
 
